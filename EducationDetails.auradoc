@@ -1,0 +1,8 @@
+<aura:documentation>
+	<aura:description>
+        <b> This is the form for Students to provide Education Details</b>
+    </aura:description>
+	<aura:example name="EducationDetailsComponent" ref="c:EducationDetails" label="Education Details">
+		Example Description
+	</aura:example>
+</aura:documentation>
