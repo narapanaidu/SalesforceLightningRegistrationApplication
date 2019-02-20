@@ -1,0 +1,151 @@
+<aura:component controller="SaveRegistrationFormDetails" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                
+                access="global" >
+    
+    <!--Aura Attributes-->
+    
+    <aura:attribute type="String"   name = "abc"             default ="false"/>
+    
+    <aura:attribute type="String"   name="NameofStudent"     default=""/>
+    
+    <aura:attribute type="String"   name="ParentsName"       default=""/>
+    
+    <aura:attribute type ="String"  name="ClassofStudent"    default=""/>
+    
+    <aura:attribute type="String[]" name="NoOfHoursStudy"   default="Less than 1 hour,In between 1 - 4 hours,In between 4-7 hours,More than 7 hours" />
+    
+    <aura:attribute type="String"   name="UsersResponsehrs"  default=""/>
+    
+    <aura:attribute type="Integer"  name="MobileNumber"      default=""/>
+    
+    <aura:attribute type="Boolean"  name="WeekendAttendance" default="false"/>
+    
+    <aura:attribute type="Boolean"  name="AreYouInterestedInOnlineCourse"/>
+    
+    <aura:attribute type="Boolean"  name="CheckBoxValue"     default="false"/>
+    
+    <aura:attribute type="String"   name="PageHeading"       default="Registration Form for Student"/>
+    
+    <aura:attribute type="List"     name="AddEducationDetailsList" default="[]"/>
+    
+    <aura:attribute type="Registration_Form__c"  name="RegistrationForm" default="{'sojectType':'Registration_Form__c'}"/>
+    
+    <aura:attribute type="String" name="RegistrationRecordId"/>
+    
+    <!--new attribute--><aura:attribute type="Educational_Detail__c" name ="EducationDetails" default="{'sobjectType':'Educational_Detail__c'}"/>
+    
+    <aura:attribute type="Boolean" name="isDatSubmitted" default="false"/>
+    
+    <!--Starting of the Registration Page-->
+    
+    <div class="slds-m-top_large">
+         <div class="slds-page-header">
+              <div class ="slds-page-header__name-title">
+                   <div class="slds-text-heading_large">
+                        <div class="slds-align_absolute-center">
+                                  {!v.PageHeading}
+                        </div>    
+                   </div>
+             </div>
+         </div>
+    </div><br/>
+    
+    <!--Starting of the Users Input-->
+    
+    <div class="slds-size_3-of-8">
+        
+     <!--Text Boxes for Name , Parent'Name and Class of Study -->
+
+    <lightning:input name="studentsname" label="Enter your Name" value="{!v.RegistrationForm.Name}"/><br/>
+    <lightning:input name="parentsname" label="Enter your Parent's Name"  value="{!v.RegistrationForm.Parent_Name__c}"/><br/>
+    <lightning:input name="studyclass" label="Which class do you study" value ="{!v.RegistrationForm.Which_class__c}"/><br/>
+    
+    <!-- Pick List and Interation-->   
+
+    <lightning:select name="numberofStudyhours" 
+                      label="How many hours do you study?" 
+                      value="{!v.RegistrationForm.Study_Hours__c}">
+        
+        <!--<option value="red">one</option>
+        <option value="yellow">two</option>
+        <option value="green">three</option>
+        <option value="blue">four</option>-->
+        
+        <aura:iteration items="{!v.NoOfHoursStudy}" var="hrs">
+            <option value="{!hrs}" text="{!hrs}"/>
+        </aura:iteration>
+        
+    </lightning:select><br/>
+        
+    <!--Telphone Number-->
+        
+    <lightning:input type="tel" name="phonenumber" label="Enter your mobile number" value="{!v.RegistrationForm.Mobile_Number__c}"/> <br/>
+     
+        
+    
+        
+    <!--Calling another Component and iterating it based on users choice-->
+        
+        <aura:iteration items ="{!v.AddEducationDetailsList}" var = "item" indexVar="index">
+            <c:EducationDetails RegistrationRecordId="{!v.RegistrationRecordId}" EducationDetailsListInnerComponent="{!v.AddEducationDetailsList}"  indexNo="{!index}" />
+        </aura:iteration> 
+        <br/>
+        
+    <!--Button to Add Education Details-->
+        
+    <lightning:button iconName="utility:add" variant ="brand" label="Add Education Details" onclick="{!c.addDetails}">
+    </lightning:button>
+    <br/>
+        
+        
+    <!--CheckBox-->
+    <br/>   
+    <lightning:input aura:id="checkboxid"  
+                     type="checkbox" 
+                     label="Are you available on Weekends to attend the courses" 
+                     name="CourseNewCheckBox"
+                     checked="{!v.RegistrationForm.Available_on_weekends__c}"
+                     /><br/>
+        
+    <!--Understanding Aura If-->
+        
+        <aura:if isTrue="{!v.RegistrationForm.Available_on_weekends__c}">
+            <i>Thats great !!! Happy Learning!!</i>
+        </aura:if>
+       
+    <!--Button for Submission-->
+    <br/>
+    <lightning:button label="Submit" onclick="{!c.doSubmit}"></lightning:button>
+        
+    </div>
+    
+   
+ <!-- Displaying the success prompt message-->   
+<aura:if isTrue="{!v.isDatSubmitted}">
+  <div class="demo-only" style="height: 24rem;">
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <span class="slds-assistive-text">Close</span>
+         </button>
+          <h2 class="slds-text-heading_medium" id="prompt-heading-id">Success</h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium" id="prompt-message-wrapper">
+        <p> Candidate Details have been succesfully Saved. Please refresh the page for the new entry or close the tav</p>
+        </div>
+        <footer class="slds-modal__footer slds-theme_default">
+       </footer>
+       </div>
+     </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</div>
+</aura:if>
+    
+    
+    
+    
+    
+	
+</aura:component>
