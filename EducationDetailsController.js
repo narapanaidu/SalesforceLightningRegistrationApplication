@@ -8,11 +8,7 @@
     
     <aura:attribute type="String" name="DurationofCourse" default=""/>
     
-    <aura:attribute type="String[]" name="NoofHoursofStudy" default=",
-                                                                     Less than 35%,
-                                                                     In between 35% and 65%,
-                                                                     In between 65% and 80%,
-                                                                     Above 80%"/>
+    <aura:attribute type="String[]" name="NoofHoursofStudy" default=", Less than 35%, In between 35% and 65%, In between 65% and 80%, Above 80%"/>
     
     <aura:attribute type="String" name="OverAllScore" default=""/>
     
@@ -27,6 +23,7 @@
     <aura:attribute type="Educational_Detail__c" name ="EduDetails" default="{'sobjectType':'Educational_Detail__c'}"/>
     
     <aura:attribute type="String" name="RegistrationRecordId"/>
+	    
     
     <!--Aura Handlers-->
     
@@ -35,6 +32,7 @@
     <aura:handler name="change" value="{!v.indexNo}" action="{!c.changeIndex}"/>
     
     <aura:handler name ="change" value="{!v.RegistrationRecordId}" action="{!c.saveEduDetails}"/>
+	    
     
     <!--Starting of the Component-->
     
@@ -51,6 +49,7 @@
     </div>
     
     <br/>
+			  
     
     <!--TextBoxes for Inputting details-->
     
@@ -65,6 +64,7 @@
     <lightning:input label="Enter your Course Duration(in years)" name="CourseName" value="{!v.EduDetails.Course_Duration__c}"/>
     
     <br/>
+	    
     
     <!--Selection drop down using iteration-->
     
@@ -77,6 +77,7 @@
     </lightning:select>
     
     <br/>
+		    
     
     <!--button to delete the education Details-->
     
