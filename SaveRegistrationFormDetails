@@ -1,0 +1,39 @@
+public class SaveRegistrationFormDetails {
+    
+    @AuraEnabled
+    public static String SaveRegistrationDetails(Registration_Form__c regForm){
+     
+        //DML Operation to Save Registration Form Details
+        String message;
+        System.debug('Entered SaveRegistrationFormDetails Class');
+        try{
+            insert regForm;
+            message=regForm.Id;
+        }
+        Catch(Exception e)
+        {
+             message=e.getMessage();            
+        }
+        return message;
+        
+    }
+    
+    @AuraEnabled
+    public static String SaveEducationalDetails(Educational_Detail__c eduDetails){
+     
+        //DML Operation to Save Registration Form Details
+        String message;
+        System.debug('Entered SaveEducationalDetails Class');
+        try{
+            insert eduDetails;
+            message=eduDetails.Id;
+        }
+        Catch(Exception e)
+        {
+             message=e.getMessage();            
+        }
+        return message;
+        
+    }
+
+}
