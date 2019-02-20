@@ -1,0 +1,13 @@
+<aura:documentation>
+    
+	<aura:description>
+        <b> This is the form for Students to Enroll themselves for classes in XYZ location</b>
+    </aura:description>
+    
+	<aura:example name="RegistrationComponent" 
+                  ref="c:Registration_Component" 
+                  label="Registration Component">
+		Example Description for Registration Component
+	</aura:example>
+    
+</aura:documentation>
